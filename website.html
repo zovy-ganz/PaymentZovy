@@ -1,0 +1,185 @@
+<!doctype html>
+
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Payment • ZOVY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#e9f7ff; /* very light blue */
+      --primary-1:#7dd3fc; /* cyan-300 */
+      --primary-2:#60a5fa; /* blue-400 */
+      --card:#ffffff;
+      --muted:#6b7280;
+      --glass: rgba(255,255,255,0.6);
+      --shadow: 0 8px 30px rgba(32,39,55,0.08);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#f3fbff);color:#0f172a;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:36px}
+    .wrapper{width:100%;max-width:980px}header.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--primary-1),var(--primary-2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:18px;box-shadow:var(--shadow)}
+h1.title{font-size:20px;margin:0}
+p.subtitle{margin:0;color:var(--muted);font-size:13px}
+
+nav.menu{display:flex;gap:12px}
+.menu a{padding:10px 14px;border-radius:10px;background:transparent;text-decoration:none;color:var(--primary-2);font-weight:600;border:1px solid rgba(96,165,250,0.15)}
+.menu a.cta{background:linear-gradient(90deg,var(--primary-1),var(--primary-2));color:white;box-shadow:var(--shadow)}
+
+.grid{display:grid;grid-template-columns:1fr 360px;gap:20px}
+@media (max-width:880px){.grid{grid-template-columns:1fr;}.menu{flex-wrap:wrap}}
+
+.panel{background:var(--card);padding:18px;border-radius:14px;box-shadow:var(--shadow);}
+.panel h2{margin:0 0 8px 0;font-size:16px}
+.panel p{margin:0 0 12px 0;color:var(--muted);font-size:13px}
+
+.methods{display:flex;flex-direction:column;gap:12px}
+.method{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;border:1px solid rgba(15,23,42,0.04)}
+.method .icon{width:56px;height:56px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:white}
+.method .info{flex:1}
+.method .info h3{margin:0;font-size:15px}
+.method .info p{margin:4px 0 0 0;color:var(--muted);font-size:13px}
+.method .actions{display:flex;flex-direction:column;gap:8px}
+.btn{padding:8px 10px;border-radius:10px;font-weight:600;border:0;cursor:pointer}
+.btn.copy{background:transparent;border:1px dashed rgba(96,165,250,0.25);color:var(--primary-2)}
+.btn.pay{background:linear-gradient(90deg,var(--primary-1),var(--primary-2));color:white}
+
+/* specific colors */
+.icon.dana{background:linear-gradient(135deg,#00a3ff,#60a5fa)}
+.icon.gopay{background:linear-gradient(135deg,#2dd4bf,#06b6d4)}
+.icon.qris{background:linear-gradient(135deg,#7c3aed,#4f46e5)}
+
+.qrwrap{display:flex;flex-direction:column;align-items:center;gap:10px}
+.qrwrap img{max-width:100%;border-radius:10px;border:1px solid rgba(15,23,42,0.04)}
+.muted-note{font-size:13px;color:var(--muted)}
+
+.copy-toast{position:fixed;right:20px;bottom:20px;background:linear-gradient(90deg,var(--primary-1),var(--primary-2));color:white;padding:10px 14px;border-radius:10px;box-shadow:var(--shadow);display:none}
+
+footer{margin-top:14px;text-align:center;color:var(--muted);font-size:13px}
+
+/* small helper */
+.small{font-size:13px;color:var(--muted)}
+
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header class="top">
+      <div class="brand">
+        <div class="logo">ZV</div>
+        <div>
+          <h1 class="title">ZOVY • Payment</h1>
+          <p class="subtitle">Metode pembayaran — pilih dan salin untuk transfer cepat</p>
+        </div>
+      </div>
+      <nav class="menu">
+        <a href="#payments">Pembayaran</a>
+        <a href="#qris">QRIS</a>
+        <a class="cta" href="https://whatsapp.com/channel/0029VbAiGWb8kyyV497d1y3k" target="_blank" rel="noreferrer">Saluran Link</a>
+      </nav>
+    </header><main class="grid">
+  <section class="panel" id="payments">
+    <h2>Saluran Pembayaran</h2>
+    <p>Pilih saluran di bawah, lalu tekan "Salin" untuk menyalin nomor. Kamu juga bisa klik tombol bayar untuk membuka aplikasi (jika perangkat mendukung).</p>
+
+    <div class="methods">
+      <div class="method" id="dana">
+        <div class="icon dana">D</div>
+        <div class="info">
+          <h3>DANA</h3>
+          <p class="small">0881010578084 — FATIR (N/A)</p>
+        </div>
+        <div class="actions">
+          <button class="btn copy" data-copy="0881010578084">Salin</button>
+          <button class="btn pay" data-url="dana://send?phone=0881010578084">Buka DANA</button>
+        </div>
+      </div>
+
+      <div class="method" id="gopay">
+        <div class="icon gopay">G</div>
+        <div class="info">
+          <h3>GOPAY</h3>
+          <p class="small">0881010578084 — FATIR (N/A)</p>
+        </div>
+        <div class="actions">
+          <button class="btn copy" data-copy="0881010578084">Salin</button>
+          <button class="btn pay" data-url="gopay://pay?phone=0881010578084">Buka GoPay</button>
+        </div>
+      </div>
+
+      <div class="method" id="qris">
+        <div class="icon qris">Q</div>
+        <div class="info">
+          <h3>QRIS</h3>
+          <p class="small">Scan QR untuk membayar via QRIS</p>
+        </div>
+        <div class="actions">
+          <button class="btn copy" data-copy="https://files.catbox.moe/gmq4su.jpg">Salin Link</button>
+          <button class="btn pay" onclick="document.getElementById('qris').scrollIntoView({behavior:'smooth'})">Lihat QR</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <aside class="panel" id="qris">
+    <h2>QRIS & Info</h2>
+    <p class="small">QRIS tersedia. Gunakan tombol salin untuk menyimpan link QR atau scan langsung dari layar.</p>
+
+    <div class="qrwrap">
+      <img src="https://files.catbox.moe/gmq4su.jpg" alt="QRIS ZOVY" />
+      <div class="muted-note">QRIS terbitan: ZOVY • Pastikan jumlah dan penerima sesuai saat pembayaran.</div>
+      <div style="width:100%;display:flex;gap:8px;margin-top:8px">
+        <a class="btn pay" href="https://files.catbox.moe/gmq4su.jpg" target="_blank" rel="noreferrer">Buka Gambar</a>
+        <button class="btn copy" data-copy="https://files.catbox.moe/gmq4su.jpg">Salin Link QR</button>
+      </div>
+    </div>
+
+    <hr style="margin:12px 0;border:none;border-top:1px solid rgba(15,23,42,0.04)">
+    <div>
+      <div class="small">Butuh bantuan? Hubungi saluran resmi:</div>
+      <div style="margin-top:8px"><a class="menu cta" href="https://whatsapp.com/channel/0029VbAiGWb8kyyV497d1y3k" target="_blank" rel="noreferrer">Buka Saluran WhatsApp</a></div>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <div>© ZOVY — Pembayaran aman. Periksa kembali nomor dan nama penerima sebelum transfer.</div>
+</footer>
+
+<div id="toast" class="copy-toast">Tersalin ke clipboard</div>
+
+  </div>  <script>
+    // Copy to clipboard + tiny feedback
+    document.querySelectorAll('.btn.copy').forEach(btn=>{
+      btn.addEventListener('click', async ()=>{
+        const text = btn.dataset.copy;
+        try{
+          await navigator.clipboard.writeText(text);
+          showToast('Tersalin: '+text);
+        }catch(e){
+          // fallback
+          const ta = document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');showToast('Tersalin: '+text);}catch(err){alert('Gagal menyalin — silakan salin manual: '+text);}ta.remove();
+        }
+      })
+    })
+
+    // Pay buttons try to open deep-links (may or may not work on desktop)
+    document.querySelectorAll('.btn.pay').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const url = b.dataset.url || b.getAttribute('href');
+        if(!url) return;
+        window.location.href = url;
+      })
+    })
+
+    function showToast(msg){
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.style.display='block';
+      setTimeout(()=>{t.style.display='none'},2200);
+    }
+  </script></body>
+</html>
